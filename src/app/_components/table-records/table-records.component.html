@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <!-- Filtro da Tabela -->
+  <div class="row mb-3">
+    <div class="col-md-6 offset-md-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ID, Operation, User, etc.">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Sua Tabela -->
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort class="table table-striped table-bordered">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Operation Column -->
+      <ng-container matColumnDef="operation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Operation</th>
+        <td mat-cell *matCellDef="let element">{{ element.operation.type }}</td>
+      </ng-container>
+
+      <!-- User Column -->
+      <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User</th>
+        <td mat-cell *matCellDef="let element">{{ element.user.username }}</td>
+      </ng-container>
+
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+        <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+      </ng-container>
+
+      <!-- User Balance Column -->
+      <ng-container matColumnDef="userBalance">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>User Balance</th>
+        <td mat-cell *matCellDef="let element">{{ element.userBalance }}</td>
+      </ng-container>
+
+      <!-- Operation Response Column -->
+      <ng-container matColumnDef="operationResponse">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Operation Response</th>
+        <td mat-cell *matCellDef="let element">{{ element.operationResponse }}</td>
+      </ng-container>
+
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <!-- Paginator -->
+  <div class="row mt-3">
+    <div class="col-md-6 offset-md-3">
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+</div>
