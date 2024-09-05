@@ -9,7 +9,7 @@ import { AuthService } from '../../_services/auth.service';
   providedIn: 'root'
 })
 export class RecordService {
-  private apiUrl = `${environment.apiBaseUrl}/api/v1/operations`;
+  private apiUrl = `${environment.apiBaseUrl}/arithmetic-calculator/list`;
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
