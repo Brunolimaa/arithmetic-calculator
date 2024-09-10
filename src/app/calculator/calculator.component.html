@@ -1,9 +1,9 @@
-
 <div class="calculator">
   <div class="display">
     <input type="text" [value]="displayValue" disabled>
   </div>
   <div class="buttons">
+    <!-- Existing buttons -->
     <button (click)="appendNumber('7')">7</button>
     <button (click)="appendNumber('8')">8</button>
     <button (click)="appendNumber('9')">9</button>
@@ -25,5 +25,9 @@
     <button (click)="setOperation('+')">+</button>
 
     <button (click)="clear()">C</button>
+
+    <button (click)="calculateSquareRoot()">√</button>
+    <button (click)="generateRandomString()">Random</button>
   </div>
+
 </div>

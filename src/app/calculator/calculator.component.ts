@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-//import { NavbarComponent } from '../_components/navbar/navbar.component';
 import { CalculatorService } from './calculator.service';
 import { CommonModule } from '@angular/common';
 
@@ -15,8 +14,8 @@ export class CalculatorComponent {
   currentOperation: string = '';
   firstOperand: number | null = null;
   waitingForSecondOperand: boolean = false;
-
-
+  squareRoot: number | null = null;
+  randomString: string = '';
 
   constructor(private calculatorService: CalculatorService) { }
 
@@ -47,9 +46,7 @@ export class CalculatorComponent {
     if (this.firstOperand === null) {
       this.firstOperand = parseFloat(this.displayValue);
     } else if (this.currentOperation) {
-      
       this.performCalculation(this.firstOperand, parseFloat(this.displayValue));
-
     }
 
     this.currentOperation = operation;
@@ -57,7 +54,6 @@ export class CalculatorComponent {
   }
 
   performCalculation(firstOperand: number, secondOperand: number): void {
-
     switch (this.currentOperation) {
       case '+':
         this.calculatorFromApi('addition', firstOperand, secondOperand);
@@ -71,6 +67,9 @@ export class CalculatorComponent {
       case '/':
         this.calculatorFromApi('division', firstOperand, secondOperand);
         break;
+      case 'random':
+        this.calculatorFromApi('division', firstOperand, secondOperand);                
+        break;
       default:
         console.error('Operação não reconhecida');
     }
@@ -78,7 +77,7 @@ export class CalculatorComponent {
 
   calculateResult() {
     if (this.currentOperation && this.firstOperand !== null) {
-      this.performCalculation(this.firstOperand, parseFloat(this.displayValue));      
+      this.performCalculation(this.firstOperand, parseFloat(this.displayValue));
       this.currentOperation = '';
       this.firstOperand = null;
     }
@@ -89,22 +88,43 @@ export class CalculatorComponent {
     this.currentOperation = '';
     this.firstOperand = null;
     this.waitingForSecondOperand = false;
+    this.squareRoot = null;
+    this.randomString = '';
   }
 
-  calculatorFromApi(operation: string, firstOperand: number, secondOperand: number): void {    
+
+  calculateSquareRoot() {
+    const value = parseFloat(this.displayValue);
+    if (value < 0) {
+      this.squareRoot = null;
+    } else {
+      this.calculatorFromApi('square_root', value, 0);      
+    }
+  }
+
+  calculatorFromApi(operation: string, firstOperand: number, secondOperand: number): void {
     this.calculatorService.operation(operation, firstOperand, secondOperand).subscribe({
-        next: result => {
-          if(result != undefined && result != null) {
-            this.displayValue = String(result);
-            this.firstOperand = Number(result);
-          } else {
-            this.displayValue = '';
-          }
-        },
-        error: error => {
-          console.error('Erro na operação:', error);
-          this.displayValue = ''; 
+      next: result => {
+        if (result != undefined && result != null) {
+          this.displayValue = String(result);
+          this.firstOperand = Number(result);
+        } else {
+          this.displayValue = '';
         }
-      });
+      },
+      error: error => {
+        console.error('Erro na operação:', error);
+        this.displayValue = ''; 
+      }
+    });
+  }
+
+
+  // Método para gerar uma string aleatória
+  generateRandomString() {
+    //const length = 10; // Defina o comprimento da string aleatória conforme necessário
+    //const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    //this.randomString = Array.from({ length }, () => charset.charAt(Math.floor(Math.random() * charset.length))).join('');
+    this.calculatorFromApi('random_string', 0, 0);      
   }
 }

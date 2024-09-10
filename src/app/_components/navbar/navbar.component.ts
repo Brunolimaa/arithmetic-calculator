@@ -1,4 +1,6 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { AuthService } from '../../_services/auth.service';
+
 declare var bootstrap: any;
 
 @Component({
@@ -7,11 +9,28 @@ declare var bootstrap: any;
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements AfterViewInit {
+
+  isLoged: boolean = false;
+
+  constructor(private authService: AuthService) { 
+    console.log("token collapseElement: "+ authService.getToken());
+  }
+
   ngAfterViewInit() {
-    // Inicializa o collapse manualmente se necessário
     const collapseElement = document.getElementById('navbarToggleExternalContent');
-    if (collapseElement) {
+    if (collapseElement) {      
       new bootstrap.Collapse(collapseElement, { toggle: false });
     }
+  }
+
+  verifyMenu() {
+    if(this.authService.getToken() != null && this.authService.getToken() != "") {
+      this.isLoged = true;
+    }    
+  }
+
+  logout() {    
+    this.authService.setToken("");
+    this.isLoged = false;
   }
 }
