@@ -8,7 +8,7 @@ import { tap, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiBaseUrl}/api/v1/authenticate`;
+  private apiUrl = `${environment.apiBaseUrl}/arithmetic-calculator/auth`;
   private token: string | null = null;
 
   constructor(private http: HttpClient) {
