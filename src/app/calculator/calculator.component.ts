@@ -120,11 +120,7 @@ export class CalculatorComponent {
   }
 
 
-  // Método para gerar uma string aleatória
   generateRandomString() {
-    //const length = 10; // Defina o comprimento da string aleatória conforme necessário
-    //const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    //this.randomString = Array.from({ length }, () => charset.charAt(Math.floor(Math.random() * charset.length))).join('');
     this.calculatorFromApi('random_string', 0, 0);      
   }
 }
