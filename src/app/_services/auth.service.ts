@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = `${environment.apiBaseUrl}/arithmetic-calculator/auth`;
-
+  private apiUrl = `${environment.apiBaseUrl}/api/v1/authenticate`;
   private token: string | null = null;
 
   constructor(private http: HttpClient) {
@@ -32,7 +31,6 @@ export class AuthService {
 
   authenticate(username: string, password: string): Observable<string> {
     this.clearToken();
-    console.log('CAIU AQUI: '+username+' - '+password+' token?>'+this.token);
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -45,7 +43,15 @@ export class AuthService {
     return this.http.post<string>(this.apiUrl, body, { headers, responseType: 'text' as 'json' }).pipe(
       tap(token => {
         this.setToken(token);
+      }),
+      catchError(error => {
+        console.error('Authentication failed', error);
+        return of('');
       })
     );
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    return of(!!this.token);
   }
 }
