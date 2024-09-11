@@ -91,6 +91,18 @@ The build artifacts will be placed in the `dist/` directory. You can upload thes
 - [Node.js](https://nodejs.org/)
 - [AWS S3](https://aws.amazon.com/s3/)
 
----
+## First Screem - Login
 
-Replace `path/to/your/system-design.png` with the actual path to your PNG file. Adjust the URLs, environment configurations, and other specifics as needed for your project. If you have additional sections or details, feel free to let me know!
+![image](https://github.com/user-attachments/assets/f56b6ab4-788c-4582-b0c6-920c20531186)
+
+## Second Screem - Calculator
+
+![image](https://github.com/user-attachments/assets/5055179a-cfbc-40d1-831a-3c03fa83f657)
+
+## Third Screem - List records
+
+![image](https://github.com/user-attachments/assets/37bbd2b7-7cd1-49c7-81e3-b6f0e6548139)
+
+
+
+
